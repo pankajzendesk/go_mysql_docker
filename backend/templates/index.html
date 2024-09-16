@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter User Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        h1 {
+            color: #343a40;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .p-success {
+            color: green;
+        }
+    </style>
+    <script>
+        function submitForm(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            fetch('/submit', {
+                method: 'POST',
+                body: formData
+            }).then(response => response.json())
+            .then(data => {
+                if (data.status === 'user submitted') {
+                    document.getElementById('success-msg').innerText = 'Successfully stored data';
+                } else {
+                    document.getElementById('success-msg').innerText = 'Submission failed';
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Enter User Details</h1>
+    </header>
+    <div class="container">
+        <h2>Submit Your Details</h2>
+        <form onsubmit="submitForm(event)">
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="Name" required><br>
+            <label for="surname">Surname:</label><br>
+            <input type="text" id="surname" name="Surname" required><br>
+            <label for="age">Age:</label><br>
+            <input type="number" id="age" name="Age" required><br>
+            <input type="submit" value="Submit">
+        </form>
+        <br>
+        <p id="success-msg" class="p-success"></p>
+        <a href="/data">View Stored Data</a>
+        <br><br>
+        <a href="/crash" style="color: red;">Deliberate Crash</a>
+    </div>
+</body>
+</html>

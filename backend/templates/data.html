@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stored User Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        h1 {
+            color: #343a40;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #343a40;
+            color: white;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #f8f9fa;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Stored User Data</h1>
+    </header>
+    <div class="container">
+        <h2>User Data Table</h2>
+        {{if .success}}
+        <p style="color: green;">{{.success}}</p>
+        {{end}}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Sr No</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Age</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{range .users}}
+                <tr>
+                    <td>{{.SerialNumber}}</td>
+                    <td>{{.Name}}</td>
+                    <td>{{.Surname}}</td>
+                    <td>{{.Age}}</td>
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
+        <br>
+        <a href="/crash" style="color: red;">Deliberate Crash</a>
+    </div>
+</body>
+</html>
